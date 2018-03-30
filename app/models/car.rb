@@ -19,10 +19,13 @@
 
 class Car < ActiveRecord::Base
 	validates :name, presence: true
+	validates :status, presence: true
 	validates :latitude, presence: true
 	validates :longitude, presence: true
 	validates :parnter_id, presence: true
 	validates :foreign_id, presence: true, uniqueness: { scope: :parnter_id }
 
+
+	enum status: [ :busy, :active ]
 
 end
