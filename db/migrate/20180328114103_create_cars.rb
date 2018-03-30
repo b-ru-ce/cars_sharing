@@ -4,7 +4,7 @@ class CreateCars < ActiveRecord::Migration
       t.string :name
       t.float :latitude, {:precision=>10, :scale=>6}
       t.float :longitude, {:precision=>10, :scale=>6}
-      t.integer :parnter_id
+      t.integer :partner_id
       t.string :reg_number
       t.integer :status
       t.integer :fuel_max
