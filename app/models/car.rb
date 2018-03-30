@@ -3,12 +3,12 @@
 # Table name: cars
 #
 #  id         :integer          not null, primary key
-#  name       :string
-#  latitude   :float
-#  longitude  :float
-#  parnter_id :integer
-#  gnum       :string
-#  status     :integer
+#  name       :string(255)
+#  latitude   :float(24)
+#  longitude  :float(24)
+#  partner_id :integer
+#  reg_number :string(255)
+#  status     :integer          default(0), not null
 #  fuel_max   :integer
 #  fuel       :integer
 #  mileage    :integer
@@ -22,8 +22,8 @@ class Car < ActiveRecord::Base
 	validates :status, presence: true
 	validates :latitude, presence: true
 	validates :longitude, presence: true
-	validates :parnter_id, presence: true
-	validates :foreign_id, presence: true, uniqueness: { scope: :parnter_id }
+	validates :partner_id, presence: true
+	validates :foreign_id, presence: true, uniqueness: { scope: :partner_id }
 
 
 	enum status: [ :busy, :active ]
