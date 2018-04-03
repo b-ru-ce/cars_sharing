@@ -12,4 +12,6 @@
 class Partner < ActiveRecord::Base
 	validates :name, presence: true
 	validates :adapter_name, presence: true
+
+	has_many :cars
 end

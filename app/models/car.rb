@@ -25,6 +25,7 @@ class Car < ActiveRecord::Base
 	validates :partner_id, presence: true
 	validates :foreign_id, presence: true, uniqueness: { scope: :partner_id }
 
+	belongs_to :partner
 
 	enum status: [:unknown_status, :active]
 
