@@ -44,6 +44,8 @@ group :development, :test do
 
   gem 'rspec-rails', '~> 3.7'
   gem 'webmock'
+  
+  gem 'foreman'
 
   gem 'annotate'
 end
