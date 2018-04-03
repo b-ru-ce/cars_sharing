@@ -6,9 +6,9 @@ class Adapters::DelimobilPartner
 			path: "features",
 			fields_map: {
 					name: { path: "model" },
-					latitude: { path: ["geometry", "coordinates" , 0] },
-					longitude: { path: ["geometry", "coordinates" , 1] },
-					status: { path: "status", callback: lambda { |status| p status + " ssssss " + @status_map[status.to_s].to_s ;  @status_map[status.to_s] || @status_map[:default] } },
+					latitude: { path: ["geometry", "coordinates" , 1] },
+					longitude: { path: ["geometry", "coordinates" , 0] },
+					status: { path: "status", callback: lambda { |status| @status_map[status.to_s] || @status_map[:default] } },
 					reg_number: { path: "reg_number" },
 					foreign_id: { path: "id" },
 					fuel: { path: "fuel" }

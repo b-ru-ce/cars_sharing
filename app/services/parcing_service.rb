@@ -1,4 +1,11 @@
 class ParcingService
+
+  ADAPTER_NAMES = {
+    delimobil: Adapters::DelimobilPartner,
+    car5: Adapters::Car5Partner,
+    timcar: Adapters::TimcarPartner
+  }.with_indifferent_access.freeze
+
   class << self
     def get_data adapter
       require 'net/http'
@@ -23,7 +30,9 @@ class ParcingService
         hash = {}
         data_map[:fields_map].each do |name, field|
           hash[name] = dig(row, field[:path])
+          hash[name] = field[:compute].call(row, hash[name]) if field[:compute]
           hash[name] = field[:callback].call(hash[name]) if field[:callback]
+          
         end
         parce_data << hash
       end 
@@ -35,6 +44,11 @@ class ParcingService
       path = [path] if path.is_a? String
 
       data.dig *path
+    end
+
+
+    def get_adapter(partner)
+      ADAPTER_NAMES[partner.adapter_name]
     end
   end
 
