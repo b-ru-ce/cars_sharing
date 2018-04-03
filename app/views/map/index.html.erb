@@ -1,0 +1,67 @@
+
+<script src="http://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+<script> 
+	ymaps.ready(init);
+ 
+	function init(){     
+	 
+	    var myMap;
+	 
+	    myMap = new ymaps.Map("map", {
+	      center: [55.76, 37.64],
+	      zoom: 7,
+
+        controls: ['zoomControl']
+	    });
+
+      myMap.controls.add("zoomControl", {
+        position: {top: 15, left: 15}
+      });
+
+
+			var template = new ymaps.Template(
+				'Автомобиль: {{car.name |default: "Неизвесная марка"}}' + 
+				'{% if car.reg_number %} <br> Номер: {{car.reg_number}} {% endif %}' +
+				'{% if car.fuel %} <br>Бензин: {{car.fuel}} {% endif %}' +
+				'{% if car.fuel_max %} <br> Объем бака: {{car.fuel_max}} {% endif %}'
+				);
+
+
+	    $.get( "/map/data", function( data ) {
+	    	var myObjects = [];
+	    	var myObjectManager = new ymaps.ObjectManager({ clusterize: true })
+
+
+			  $.each(data, function(i, item) {
+			  	var data = new ymaps.data.Manager({
+		         car: item
+			    });
+
+			  	myObjects.push({
+			        type: 'Feature',
+			        id: i,
+			        geometry: {
+			            type: 'Point',
+			            coordinates: [item.latitude, item.longitude]
+			        },
+				    properties: {
+				        balloonContent: template.build(data).text
+				    }
+			    });
+				});
+
+
+
+				myObjectManager.add(myObjects);
+				myMap.geoObjects.add(myObjectManager);
+
+
+			});
+
+
+			
+	}
+</script>
+<h1>Map#index</h1>
+<div id="map" style="width: 100%; height: 500px;"></div>
+
