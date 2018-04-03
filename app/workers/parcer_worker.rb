@@ -1,8 +1,9 @@
 class ParcerWorker
   include Sidekiq::Worker
 
-  def perform(partner)
+  def perform(partner_id)
   	begin
+  		partner = Partner.find partner_id
 		  adapter = ParcingService.get_adapter partner
 	  	parce_data = ParcingService.parce(adapter, Car)
 
