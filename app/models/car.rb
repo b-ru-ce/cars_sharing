@@ -12,7 +12,7 @@
 #  fuel_max   :integer
 #  fuel       :integer
 #  mileage    :integer
-#  foreign_id :integer
+#  foreign_id :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
